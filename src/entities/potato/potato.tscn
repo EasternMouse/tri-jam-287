@@ -1,0 +1,54 @@
+[gd_scene load_steps=8 format=3 uid="uid://dhabfissicmmb"]
+
+[ext_resource type="Script" path="res://entities/potato/potato.gd" id="1_m3jmy"]
+[ext_resource type="Texture2D" uid="uid://ciqpe7ocmlo7e" path="res://entities/potato/potato_0.png" id="1_tq4y7"]
+[ext_resource type="Texture2D" uid="uid://yb2xcvpmnhbc" path="res://entities/potato/potato_1.png" id="3_ikn2u"]
+[ext_resource type="Texture2D" uid="uid://cowwauwwyka2h" path="res://entities/potato/potato_2.png" id="4_euqta"]
+[ext_resource type="Texture2D" uid="uid://bfjs6qoc4alx8" path="res://ui/selection.png" id="5_wbhjm"]
+[ext_resource type="AudioStream" uid="uid://bgbaxyvtsof4w" path="res://audio/collect.wav" id="6_els58"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qq0sn"]
+resource_local_to_scene = true
+size = Vector2(12, 15)
+
+[node name="Potato" type="Node2D"]
+script = ExtResource("1_m3jmy")
+
+[node name="0" type="Sprite2D" parent="."]
+texture = ExtResource("1_tq4y7")
+
+[node name="1" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(0, -2)
+texture = ExtResource("3_ikn2u")
+
+[node name="2" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(0, -6)
+texture = ExtResource("4_euqta")
+
+[node name="InteractionArea2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea2D"]
+position = Vector2(0, -6.5)
+shape = SubResource("RectangleShape2D_qq0sn")
+
+[node name="Selection" type="NinePatchRect" parent="."]
+visible = false
+offset_left = -6.0
+offset_top = -14.0
+offset_right = 6.0
+offset_bottom = 1.0
+texture = ExtResource("5_wbhjm")
+region_rect = Rect2(0, 0, 5, 5)
+patch_margin_left = 2
+patch_margin_top = 2
+patch_margin_right = 2
+patch_margin_bottom = 2
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_els58")
+
+[connection signal="input_event" from="InteractionArea2D" to="." method="_on_interaction_area_2d_input_event"]
+[connection signal="mouse_entered" from="InteractionArea2D" to="." method="_on_interaction_area_2d_mouse_entered"]
+[connection signal="mouse_exited" from="InteractionArea2D" to="." method="_on_interaction_area_2d_mouse_exited"]

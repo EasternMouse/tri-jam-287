@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://cfkejynk6c2np"]
+
+[ext_resource type="Script" path="res://entities/leaf/leaf.gd" id="1_3ih0s"]
+[ext_resource type="Texture2D" uid="uid://clr2fa2yy0202" path="res://ui/leaves.png" id="1_716ur"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pl7t4"]
+size = Vector2(6, 6)
+
+[node name="Leaf" type="Area2D"]
+collision_layer = 0
+collision_mask = 4
+monitorable = false
+script = ExtResource("1_3ih0s")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_716ur")
+hframes = 2
+vframes = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_pl7t4")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

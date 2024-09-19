@@ -1,0 +1,77 @@
+[gd_scene load_steps=12 format=3 uid="uid://cp5ybuxu7x1j3"]
+
+[ext_resource type="Texture2D" uid="uid://d0ep3g8cttm2j" path="res://entities/tree/tree_0.png" id="1_4e8ed"]
+[ext_resource type="Script" path="res://entities/tree/tree.gd" id="1_anrut"]
+[ext_resource type="Texture2D" uid="uid://djftv50gt8u0i" path="res://entities/tree/tree_1.png" id="2_xb4lo"]
+[ext_resource type="Texture2D" uid="uid://c2803dcfehbeb" path="res://entities/tree/tree_2.png" id="3_4qae6"]
+[ext_resource type="Texture2D" uid="uid://lurawjxkrta" path="res://entities/tree/tree_3.png" id="4_xisc5"]
+[ext_resource type="Texture2D" uid="uid://bjx0acb612nit" path="res://entities/tree/tree_dead.png" id="5_kmw1v"]
+[ext_resource type="Texture2D" uid="uid://bfjs6qoc4alx8" path="res://ui/selection.png" id="7_8q44q"]
+[ext_resource type="AudioStream" uid="uid://bideccvd2b50n" path="res://audio/hit.wav" id="8_ytj2w"]
+[ext_resource type="AudioStream" uid="uid://bgbaxyvtsof4w" path="res://audio/collect.wav" id="9_tnw8b"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5s7rq"]
+radius = 5.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wo7lt"]
+resource_local_to_scene = true
+size = Vector2(10, 6)
+
+[node name="Tree" type="StaticBody2D"]
+input_pickable = true
+script = ExtResource("1_anrut")
+
+[node name="0" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(1, -3)
+texture = ExtResource("1_4e8ed")
+
+[node name="1" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("2_xb4lo")
+offset = Vector2(0, -6)
+
+[node name="2" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("3_4qae6")
+offset = Vector2(1, -13)
+
+[node name="3" type="Sprite2D" parent="."]
+texture = ExtResource("4_xisc5")
+offset = Vector2(-1, -25)
+
+[node name="dead" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("5_kmw1v")
+offset = Vector2(0, -22)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_5s7rq")
+
+[node name="Selection" type="NinePatchRect" parent="."]
+visible = false
+offset_left = -13.0
+offset_top = -49.0
+offset_right = 20.0
+offset_bottom = 24.0
+texture = ExtResource("7_8q44q")
+region_rect = Rect2(0, 0, 5, 5)
+patch_margin_left = 2
+patch_margin_top = 2
+patch_margin_right = 2
+patch_margin_bottom = 2
+
+[node name="InteractionArea2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea2D"]
+shape = SubResource("RectangleShape2D_wo7lt")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_ytj2w")
+
+[node name="AudioStreamPlayer2" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_tnw8b")
+
+[connection signal="input_event" from="InteractionArea2D" to="." method="_on_interaction_area_2d_input_event"]
+[connection signal="mouse_entered" from="InteractionArea2D" to="." method="_on_interaction_area_2d_mouse_entered"]
+[connection signal="mouse_exited" from="InteractionArea2D" to="." method="_on_interaction_area_2d_mouse_exited"]
